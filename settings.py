@@ -6,8 +6,10 @@ def init():
     global img
     global block
     global N
+    global params
+    global mask
     block = 8
-    img_name = 'naturepng.png'
+    img_name = 'lena128.png'
     img = cv2.imread('inputs/' + img_name, 0)
 
     # Quantization Arrays
@@ -29,7 +31,7 @@ def init():
                         [18, 22, 37, 56, 68, 109, 103, 77],
                         [24, 35, 55, 64, 81, 104, 113, 92],
                         [49, 64, 78, 87, 103, 121, 120, 101],
-                        [72, 92, 95, 98, 112, 100, 130, 99]])
+                        [72, 92, 95, 98, 112, 100, 103, 99]])
 
         Q90 = np.array([[3, 2, 2, 3, 5, 8, 10, 12],
                         [2, 2, 3, 4, 5, 12, 12, 11],
@@ -46,7 +48,7 @@ def init():
         elif qName == "Q90":
             return Q90
         else:
-            return np.ones((8, 8))  # it suppose to return original image back
+            return np.ones((block, block))  # it suppose to return original image back
 
     height = len(img)  # one column of image
     width = len(img[0])  # one row of image
@@ -57,7 +59,7 @@ def init():
     for i in range(block, height + 1, block):
         currX = 0  # current X index
         for j in range(block, width + 1, block):
-            sliced.append(img[currY:i, currX:j] - np.ones((8, 8)) * 128)  # Extracting 128 from all pixels
+            sliced.append(img[currY:i, currX:j] - np.ones((block, block)) * 128)  # Extracting 128 from all pixels
             currX = j
         currY = i
 
@@ -80,7 +82,8 @@ def init():
         for i in range(block):
             for j in range(block):
                 ndct[i, j] = np.around(ndct[i, j] / selectedQMatrix[i, j])
-    # print(dct[0])
+    print("kwant")
+    print(dct[0])
 
     # 6 params
     params = []
@@ -95,7 +98,8 @@ def init():
 
     N=len(params)
 
-    f = open('params.txt', 'w')
-    for el in params:
-        f.write(str(el) + '\n')
-    f.close()
+    mask = np.zeros((height,height),bool)
+    for x in range(height):
+        for y in range(height):
+            if (x%block == 0 or x%block == 7 or y%block == 0 or y%block == 7):
+                mask[x,y]=True

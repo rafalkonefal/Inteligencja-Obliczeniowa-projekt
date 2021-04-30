@@ -7,14 +7,14 @@ def inverse_dct(dct, params):
     params = params.tolist()
     # inverse
     invList = []
-    for ipart in s.dct:
+    for ipart in dct:
         ipart[0][0] = int(params.pop(0))
         ipart[0][1] = int(params.pop(0))
         ipart[0][2] = int(params.pop(0))
         ipart[1][0] = int(params.pop(0))
         ipart[1][1] = int(params.pop(0))
         ipart[2][0] = int(params.pop(0))
-        curriDCT = cv2.idct(ipart)
+        curriDCT = cv2.dct(ipart,flags=cv2.DCT_INVERSE)+128
         invList.append(curriDCT)
     row = 0
     rowNcol = []
@@ -22,11 +22,24 @@ def inverse_dct(dct, params):
         rowNcol.append(np.hstack((invList[row:j])))
         row = j
     res = np.vstack((rowNcol))
-    return res
+    return np.round(res)
 
+def MSE(params):
+    res = inverse_dct(s.dct, params)
+    err = np.sum((res.astype("float") - s.img.astype("float")) ** 2)
+    err /= float(res.shape[0] * res.shape[1])
+    return err
+def dif(params):
+    res = inverse_dct(s.dct, params)
+    # print(res)
+    # print('xd')
+    # print(s.img)
+    return sum(sum(abs(res-s.img)))
 def fun1(params):
     res = inverse_dct(s.dct, params)
-    return sum(sum(abs(res-s.img)))
+    return sum(sum(abs(s.mask*res-s.mask*s.img)))
+
+
 
 
 
