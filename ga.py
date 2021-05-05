@@ -13,8 +13,6 @@ def run(problem, params):
     maxit = params.maxit
     npop = params.npop
     beta = params.beta
-    pc = params.pc
-    nc = int(np.round(pc*npop/2)*2)
     gamma = params.fraction
     mu = params.mu
     sigma = params.sigma
@@ -90,6 +88,12 @@ def run(problem, params):
             c2.cost = costfunc(c2.position)
             if c2.cost < bestsol.cost:
                 bestsol = c2.deepcopy()
+            c3.cost = costfunc(c3.position)
+            if c3.cost < bestsol.cost:
+                bestsol = c3.deepcopy()
+            c4.cost = costfunc(c4.position)
+            if c4.cost < bestsol.cost:
+                bestsol = c4.deepcopy()
 
             # Add Offsprings to popc
             popc.append(c1)
@@ -130,7 +134,7 @@ def mutate(x, mu, sigma):
     y = x.deepcopy()
     flag = np.random.rand(*x.position.shape) <= mu
     ind = np.argwhere(flag)
-    y.position[ind] += np.random.randint(-sigma, sigma)
+    y.position[ind] += round(np.random.normal(0,sigma))
     return y
 
 def apply_bound(x, varmin, varmax):

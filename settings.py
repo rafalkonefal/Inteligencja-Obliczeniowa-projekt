@@ -9,7 +9,7 @@ def init():
     global params
     global mask
     block = 8
-    img_name = 'lena128.png'
+    img_name = 'lena64.png'
     img = cv2.imread('inputs/' + img_name, 0)
 
     # Quantization Arrays
@@ -77,13 +77,13 @@ def init():
     # print(dct[0])
 
     # kwantyzacja
-    selectedQMatrix = selectQMatrix("Q90")
+    selectedQMatrix = selectQMatrix("Q50")
     for ndct in dct:
         for i in range(block):
             for j in range(block):
                 ndct[i, j] = np.around(ndct[i, j] / selectedQMatrix[i, j])
-    print("kwant")
-    print(dct[0])
+    # print("kwant")
+    # print(dct[55])
 
     # 6 params
     params = []
@@ -94,7 +94,7 @@ def init():
         params.append(np.int(part[1][0]))
         params.append(np.int(part[1][1]))
         params.append(np.int(part[2][0]))
-    print(len(params), params)
+    # print(len(params), params)
 
     N=len(params)
 

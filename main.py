@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 from matplotlib import pyplot as plt
 from geneticalgorithm import geneticalgorithm as ga
-from cost_fcn import MSE, dif, inverse_dct, fun1
+from cost_fcn import MSE, dif, inverse_dct, fun1, fun2, fun3
 import settings as s
 import os
 from ypstruct import structure
@@ -18,26 +18,25 @@ def showImage(img):
     plt.show()
 
 showImage(s.img)
-print(s.img)
-print(inverse_dct(s.dct, np.asarray(s.params)))
+# print(s.img)
+# print(inverse_dct(s.dct, np.asarray(s.params)))
 showImage(inverse_dct(s.dct, np.asarray(s.params)))
 
 # Problem Definition
 problem = structure()
-problem.costfunc = MSE
+problem.costfunc = fun2
 problem.nvar = s.N
 problem.varmin = [-255]*s.N
 problem.varmax = [255]*s.N
 
 # GA Parameters
 params = structure()
-params.maxit = 500
-params.npop = 40
+params.maxit = 400
+params.npop = 50
 params.beta = 1
-params.pc = 1
 params.fraction = 0.8
-params.mu = 0.2
-params.sigma = 10
+params.mu = 0.6
+params.sigma = 15
 params.init_individual = s.params
 
 # Run GA
