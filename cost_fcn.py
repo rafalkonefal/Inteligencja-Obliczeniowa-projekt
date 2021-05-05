@@ -7,7 +7,7 @@ def inverse_dct(dct, params):
     params = params.tolist()
     # inverse
     invList = []
-    for ipart in s.dct:
+    for ipart in dct:
         ipart[0][0] = int(params.pop(0))
         ipart[0][1] = int(params.pop(0))
         ipart[0][2] = int(params.pop(0))

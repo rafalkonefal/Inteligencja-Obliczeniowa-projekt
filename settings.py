@@ -7,7 +7,7 @@ def init():
     global block
     global N
     block = 8
-    img_name = 'naturepng.png'
+    img_name = 'lena64.png'
     img = cv2.imread('inputs/' + img_name, 0)
 
     # Quantization Arrays

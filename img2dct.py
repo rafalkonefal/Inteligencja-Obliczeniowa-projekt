@@ -1,10 +1,12 @@
 import numpy as np
 import cv2
 from matplotlib import pyplot as plt
+import os
+from PIL import Image
 from geneticalgorithm import geneticalgorithm as ga
 from cost_fcn import fun1, inverse_dct
 import settings as s
-import os
+
 print(os.listdir("inputs"))
 
 s.init()
@@ -16,8 +18,15 @@ def showImage(img):
     plt.imshow(img,cmap='gray')
     plt.xticks([]),plt.yticks([])
     plt.show()
+    
+def showImage2(img):
+    out = Image.fromarray(img, 'L')
+    #out.save('outputlena.png')
+    out.show()
+
 
 showImage(s.img)
+showImage2(s.img)
 
 f=open('dct.txt','w')
 for part in s.dct:
@@ -52,4 +61,12 @@ opt_solution = opt_solution.astype(int)
 
 print(f"Rozwiązanie:\n {opt_solution}\n")
 
-showImage(inverse_dct(s.dct, opt_solution))
+output_img = inverse_dct(s.dct, opt_solution)
+
+
+showImage(output_img)
+showImage2(output_img)
+
+# cv2.imshow('window', output_img)
+# cv2.waitKey()
+# cv2.destroyAllWindows()

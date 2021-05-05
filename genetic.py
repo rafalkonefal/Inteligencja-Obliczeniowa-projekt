@@ -1,9 +1,10 @@
 from geneticalgorithm import geneticalgorithm as ga
 import numpy as np
 from cost_fcn import fun1
+import settings as s
 
-N=4500 #to sie potem zminei zeby samo liczyli ile jest params
-
+N=384 #to sie potem zminei zeby samo liczyli ile jest params
+print(s.N)
 
 algorithm_param = {'max_num_iteration': 100,\
                    'population_size':50,\
@@ -14,8 +15,8 @@ algorithm_param = {'max_num_iteration': 100,\
                    'crossover_type':'uniform',\
                    'max_iteration_without_improv':None}
 
-varbound=np.array([[1,255]]*N)
-model=ga(function=fun1,dimension=N,variable_type='int',variable_boundaries=varbound,algorithm_parameters=algorithm_param)
+varbound=np.array([[1,255]]*s.N)
+model=ga(function=fun1,dimension=s.N,variable_type='int',variable_boundaries=varbound,algorithm_parameters=algorithm_param)
 
 model.run()
 report = model.report
