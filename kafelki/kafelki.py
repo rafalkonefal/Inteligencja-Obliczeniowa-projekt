@@ -4,7 +4,7 @@ import math
 #chodzi o to ze dzielimmy na kafelki i kafelki  optymalizujemy jako niezalezne cale obrazy, a potem to sklejamy srednia np
 # tylko jak niby wtedy ma sie zaoszczedzic miejsce jak jednak nie mamy pustych zer wtedy??
 
-def decompose_img(img, img_size = 256, tile_size = 16, shift = 8):   #img to obraz albo dct
+def decompose_img(img, img_size, tile_size = 16, shift = 8):   #img to obraz albo dct
     n_tiles = math.ceil( (img_size-tile_size) / shift) +1   #w jednym wymiarze   
     output_tiles = []
     for i in range(n_tiles):
@@ -13,7 +13,7 @@ def decompose_img(img, img_size = 256, tile_size = 16, shift = 8):   #img to obr
     return output_tiles #zwraca listę arrayów (kafelków) zliczanych rzędami
 
 
-def compose_img(decomposed_img, img_size = 256, tile_size = 16, shift = 8):
+def compose_img(decomposed_img, img_size, tile_size = 16, shift = 8):
     n_tiles = math.ceil( (img_size-tile_size) / shift) +1   #w jednym wymiarze
     output_list = [[ [] for _ in range(img_size)] for _ in range(img_size)]
     for t,tile in enumerate(decomposed_img):
