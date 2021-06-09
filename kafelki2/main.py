@@ -2,7 +2,6 @@ import settings as s
 import show_fcn as show
 import ga
 
-
 s.read_params()
 results = []
 

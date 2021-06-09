@@ -31,6 +31,10 @@ def show_results(results):
         costs = [t[0] for t in results]
         costs_list = [[] for _ in range(s.ga_maxit)]
         for t,tile_cost in enumerate(costs):
+            for it,cost in enumerate(tile_cost):
+                costs_list[it].append(cost)
+            if not s.show_all_plots:
+                continue
             plt.figure()
             plt.plot(tile_cost)
             plt.xlim(0, s.ga_maxit)
@@ -39,8 +43,16 @@ def show_results(results):
             plt.title('Genetic Algorithm (GA) - Tile '+str(t))
             plt.grid(True)
             plt.show()
-            for it,cost in enumerate(tile_cost):
-                costs_list[it].append(cost)
+                
+        plt.figure()
+        plt.plot(costs_list)
+        plt.xlim(0, s.ga_maxit)
+        plt.xlabel('Iterations')
+        plt.ylabel('Best Cost')
+        plt.title('Genetic Algorithm (GA) - All Tiles')
+        plt.grid(True)
+        plt.show()
+        
         costs_list = [np.mean(it) for it in costs_list]
         plt.figure()
         plt.plot(costs_list)

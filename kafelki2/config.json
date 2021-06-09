@@ -1,7 +1,7 @@
 {
- "img_name": "lena64.png",
+ "img_name": "lena128.png",
  "dct_block_size": 8,
- "ga_maxit": 200,
+ "ga_maxit": 300,
  "ga_npop": 40,
  "ga_beta": 1,
  "ga_mu": 0.2,
@@ -10,6 +10,7 @@
  "proceed_with_tiles": true,
  "tile_size": 24,
  "tile_shift": 8,
+ "show_all_plots": false,
  "_comment": "available cost_fcns: MSE, dif, fun1, fun2, fun3",
- "cost_fcn": "fun3" 
+ "cost_fcn": "fun2" 
  }

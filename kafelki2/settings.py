@@ -58,6 +58,7 @@ def read_params():
     global ga_mu
     global ga_sigma
     global ga_fraction
+    global show_all_plots
     img_name = config['img_name']
     if not img_name in os.listdir("inputs"):
         raise ValueError("File not exists")
@@ -68,6 +69,7 @@ def read_params():
     ga_mu = config['ga_mu']
     ga_sigma = config['ga_sigma']
     ga_fraction = config['ga_fraction']
+    show_all_plots = config['show_all_plots']
     proceed_with_tiles = config['proceed_with_tiles']
     tile_size = config['tile_size']
     shift = config['tile_shift']
