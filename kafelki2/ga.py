@@ -1,5 +1,34 @@
 import numpy as np
 from ypstruct import structure
+import settings as s
+from cost_fcn import inverse_dct
+import show_fcn as show
+
+
+def proceed():
+    # Problem Definition
+    problem = structure()
+    problem.costfunc = s.cost_fcn
+    problem.nvar = s.N
+    problem.varmin = [-255]*s.N
+    problem.varmax = [255]*s.N
+
+    # GA Parameters
+    params = structure()
+    params.maxit = s.ga_maxit
+    params.npop = s.ga_npop
+    params.beta = s.ga_beta
+    params.pc = 1
+    params.fraction = s.ga_fraction
+    params.mu = s.ga_mu
+    params.sigma = s.ga_sigma
+    params.init_individual = s.params
+
+    # Run GA
+    out = run(problem, params)
+    img = inverse_dct(s.dct, out.bestsol.position)
+    
+    return out.bestcost, img
 
 def run(problem, params):
     
@@ -13,8 +42,8 @@ def run(problem, params):
     maxit = params.maxit
     npop = params.npop
     beta = params.beta
-    pc = params.pc
-    nc = int(np.round(pc*npop/2)*2)
+    #pc = params.pc
+    #nc = int(np.round(pc*npop/2)*2)
     gamma = params.fraction
     mu = params.mu
     sigma = params.sigma

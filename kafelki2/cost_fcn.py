@@ -29,12 +29,11 @@ def MSE(params):
     err = np.sum((res.astype("float") - s.img.astype("float")) ** 2)
     err /= float(res.shape[0] * res.shape[1])
     return err
+
 def dif(params):
     res = inverse_dct(s.dct, params)
-    # print(res)
-    # print('xd')
-    # print(s.img)
     return sum(sum(abs(res-s.img)))
+
 def fun1(params):
     res = inverse_dct(s.dct, params)
     return sum(sum(abs(s.mask*res-s.mask*s.img)))

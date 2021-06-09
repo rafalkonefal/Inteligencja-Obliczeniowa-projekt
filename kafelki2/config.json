@@ -1,0 +1,15 @@
+{
+ "img_name": "test24.png",
+ "dct_block_size": 8,
+ "ga_maxit": 100,
+ "ga_npop": 40,
+ "ga_beta": 1,
+ "ga_mu": 0.2,
+ "ga_sigma": 10,
+ "ga_fraction": 0.8,
+ "proceed_with_tiles": false,
+ "tile_size": 16,
+ "tile_shift": 8,
+ "_comment": "available cost_fcns: MSE, dif, fun1",
+ "cost_fcn": "dif" 
+ }
