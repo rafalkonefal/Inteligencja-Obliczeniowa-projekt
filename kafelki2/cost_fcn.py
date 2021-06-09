@@ -6,7 +6,7 @@ def inverse_dct(dct, params):
     width = len(s.img[0])  # one row of image
     params = params.tolist()
     # inverse
-    invList = []
+    invList = []Za
     for ipart in dct:
         ipart[0][0] = int(params.pop(0))
         ipart[0][1] = int(params.pop(0))

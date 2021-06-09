@@ -2,7 +2,6 @@ import numpy as np
 from ypstruct import structure
 import settings as s
 from cost_fcn import inverse_dct
-import show_fcn as show
 
 
 def proceed():
@@ -29,6 +28,7 @@ def proceed():
     img = inverse_dct(s.dct, out.bestsol.position)
     
     return out.bestcost, img
+
 
 def run(problem, params):
     

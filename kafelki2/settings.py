@@ -5,11 +5,7 @@ import json
 import cost_fcn as c
 import os
 
-import show_fcn as show
-
-# Quantization Arrays
-
-def selectQMatrix(qName):
+def selectQMatrix(qName): # Quantization Arrays
     Q10 = np.array([[80, 60, 50, 80, 120, 200, 255, 255],
                      [55, 60, 70, 95, 130, 255, 255, 255],
                      [70, 65, 80, 120, 200, 255, 255, 255],
@@ -147,7 +143,8 @@ def init(tile = None):
     print(len(params), params)
 
     N=len(params)
-
+    
+    #mask for cost_fcn fun1
     mask = np.zeros((height,height),bool)
     for x in range(height):
         for y in range(height):

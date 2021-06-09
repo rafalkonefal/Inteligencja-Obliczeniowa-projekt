@@ -1,7 +1,6 @@
 from matplotlib import pyplot as plt
 import numpy as np
 import settings as s
-import cost_fcn as c
 from kafelki import compose_img
 
 
