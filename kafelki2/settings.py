@@ -72,8 +72,8 @@ def read_params():
     tile_size = config['tile_size']
     shift = config['tile_shift']
     cost_fcn_name = config["cost_fcn"]
-    if cost_fcn_name in ["MSE", "dif", "fun1"]:
-        cost_fcn = {"MSE": c.MSE, "dif": c.dif, "fun1": c.fun1}[cost_fcn_name]
+    if cost_fcn_name in ["MSE", "dif", "fun1", "fun2", "fun3"]:
+        cost_fcn = {"MSE": c.MSE, "dif": c.dif, "fun1": c.fun1, "fun2": c.fun2, "fun3": c.fun3}[cost_fcn_name]
     else:
         raise TypeError("read _comment aobout cost_fcn in config.json")
   
