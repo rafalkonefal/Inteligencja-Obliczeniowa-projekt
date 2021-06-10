@@ -1,5 +1,34 @@
 import numpy as np
 from ypstruct import structure
+import settings as s
+from cost_fcn import inverse_dct
+
+
+def proceed():
+    # Problem Definition
+    problem = structure()
+    problem.costfunc = s.cost_fcn
+    problem.nvar = s.N
+    problem.varmin = [-255]*s.N
+    problem.varmax = [255]*s.N
+
+    # GA Parameters
+    params = structure()
+    params.maxit = s.ga_maxit
+    params.npop = s.ga_npop
+    params.beta = s.ga_beta
+    params.pc = 1
+    params.fraction = s.ga_fraction
+    params.mu = s.ga_mu
+    params.sigma = s.ga_sigma
+    params.init_individual = s.params
+
+    # Run GA
+    out = run(problem, params)
+    img = inverse_dct(s.dct, out.bestsol.position)
+    
+    return out.bestcost, img
+
 
 def run(problem, params):
     
@@ -13,6 +42,8 @@ def run(problem, params):
     maxit = params.maxit
     npop = params.npop
     beta = params.beta
+    #pc = params.pc
+    #nc = int(np.round(pc*npop/2)*2)
     gamma = params.fraction
     mu = params.mu
     sigma = params.sigma
@@ -88,12 +119,6 @@ def run(problem, params):
             c2.cost = costfunc(c2.position)
             if c2.cost < bestsol.cost:
                 bestsol = c2.deepcopy()
-            c3.cost = costfunc(c3.position)
-            if c3.cost < bestsol.cost:
-                bestsol = c3.deepcopy()
-            c4.cost = costfunc(c4.position)
-            if c4.cost < bestsol.cost:
-                bestsol = c4.deepcopy()
 
             # Add Offsprings to popc
             popc.append(c1)
@@ -134,7 +159,7 @@ def mutate(x, mu, sigma):
     y = x.deepcopy()
     flag = np.random.rand(*x.position.shape) <= mu
     ind = np.argwhere(flag)
-    y.position[ind] += round(np.random.normal(0,sigma))
+    y.position[ind] += np.random.randint(-sigma, sigma)
     return y
 
 def apply_bound(x, varmin, varmax):

@@ -24,14 +24,19 @@ def inverse_dct(dct, params):
         row = j
     res = np.vstack((rowNcol))
     return np.round(res)
+
 def create_right_vector(actual, right):
     return [abs(actual[i,s.block-1]-right[i,0]) for i in range(s.block)]
+
 def create_down_vector(actual, down):
     return [abs(actual[s.block-1,i]-down[0,i]) for i in range(s.block)]
+
 def l1_norm(vec):
     return sum(vec)
+
 def l2_norm(vec):
     return math.sqrt(sum([ x**3 for x in vec ]))
+
 def create_array_of_blocks(img):
     height = len(img)  # one column of image
     width = len(img[0])  # one row of image
@@ -45,17 +50,21 @@ def create_array_of_blocks(img):
             currX = j
         currY = i
     return sliced
+
 def MSE(params):
     res = inverse_dct(s.dct, params)
     err = np.sum((res.astype("float") - s.img.astype("float")) ** 2)
     err /= float(res.shape[0] * res.shape[1])
     return err
+
 def dif(params):
     res = inverse_dct(s.dct, params)
     return sum(sum(abs(res-s.img)))
+
 def fun1(params):
     res = inverse_dct(s.dct, params)
     return sum(sum(abs(s.mask*res-s.mask*s.img)))
+
 def fun2(params):
     result = 0
     res = inverse_dct(s.dct, params)
@@ -71,6 +80,7 @@ def fun2(params):
             if (i < height - 1):
                 result += l2_norm(create_down_vector(sliced[i][j], sliced[i+1][j]))
     return result
+
 def fun3(params):
     alpha = 0.1
     betha = 100
